@@ -7,7 +7,8 @@ const MongoStore = require('connect-mongo')
 
 const opts = program.opts();
 
-dotenv.config()
+dotenv.config({
+    path: opts.mode == 'production' ? './.env.production' : './.env.development'})
 
 const configObject = {
     
@@ -15,6 +16,7 @@ const configObject = {
     jwt_code: process.env.JWT_SECRET_CODE,
     cookies_code: process.env.COOKIES_SECRET_CODE,
     mongo_uri: process.env.MONGO_URI,
+    mongo_secret_code: process.env.MONGO_SECRET_CODE,
     uadmin: process.env.USER_ADMIN,
     uadmin_pass: process.env.USER_ADMIN_PASS,
     gh_client_id: process.env.GITHUB_CLIENT_ID,
@@ -23,10 +25,7 @@ const configObject = {
 
     connectDB: async () => {
         try {
-            await mongoose.connect(process.env.MONGO_URI, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            });
+            await mongoose.connect(process.env.MONGO_URI, );
             console.log('Base de datos conectada');
         } catch (error) {
             console.error('Error al conectar a la base de datos:', error.message);

@@ -12,6 +12,9 @@ const sessionsRouter = require('./routes/session.route.js')
 const {userRouter} = require('./routes/user.router.js')
 const passport = require('passport');
 const {initializePassport} = require('./config/passport.config.js');
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
+
 
 configObject.connectDB()
 
@@ -49,16 +52,3 @@ server.listen(port, () => {
   console.log(`Server andando en port ${port}`);
 });
 
-// app.use(session({
-//   store: MongoStore.create({
-//       mongoUrl: 'mongodb+srv://facundogorlero:Lucas-10@zogk.a4uasms.mongodb.net/ecommerce?retryWrites=true&w=majority', // uri -> superconjunto de la url
-//       mongoOptions: {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//     },
-//       ttl: 15000000000,
-//   }),
-//   secret: 'secretCoder',
-//   resave: true, 
-//   saveUninitialized: true
-// }))
